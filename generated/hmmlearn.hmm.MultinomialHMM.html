@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.2. hmmlearn.hmm.MultinomialHMM &mdash; hmmlearn 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/copybutton.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="hmmlearn 0.1.0 documentation" href="../index.html" />
+    <link rel="up" title="2. Reference" href="../classes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="../index.html">hmmlearn 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../classes.html" accesskey="U">2. Reference</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="hmmlearn-hmm-multinomialhmm">
+<h1>2.1.2. hmmlearn.hmm.MultinomialHMM<a class="headerlink" href="#hmmlearn-hmm-multinomialhmm" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="hmmlearn.hmm.MultinomialHMM">
+<em class="property">class </em><tt class="descclassname">hmmlearn.hmm.</tt><tt class="descname">MultinomialHMM</tt><big>(</big><em>n_components=1</em>, <em>startprob=None</em>, <em>transmat=None</em>, <em>startprob_prior=None</em>, <em>transmat_prior=None</em>, <em>algorithm='viterbi'</em>, <em>random_state=None</em>, <em>n_iter=10</em>, <em>thresh=0.01</em>, <em>params='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'</em>, <em>init_params='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hidden Markov Model with multinomial (discrete) emissions</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="hmmlearn.hmm.GaussianHMM.html#hmmlearn.hmm.GaussianHMM" title="hmmlearn.hmm.GaussianHMM"><tt class="xref py py-obj docutils literal"><span class="pre">GaussianHMM</span></tt></a></dt>
+<dd>HMM with Gaussian emissions</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">hmmlearn.hmm</span> <span class="kn">import</span> <span class="n">MultinomialHMM</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MultinomialHMM</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">... </span>                            
+<span class="go">MultinomialHMM(algorithm=&#39;viterbi&#39;,...</span>
+</pre></div>
+</div>
+<p class="rubric">Attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>n_components</td>
+<td>(int) Number of states in the model.</td>
+</tr>
+<tr class="row-even"><td>n_symbols</td>
+<td>(int) Number of possible symbols emitted by the model (in the observations).</td>
+</tr>
+<tr class="row-odd"><td>transmat</td>
+<td>(array, shape (<cite>n_components</cite>, <cite>n_components</cite>)) Matrix of transition probabilities between states.</td>
+</tr>
+<tr class="row-even"><td>startprob</td>
+<td>(array, shape (&#8216;n_components`,)) Initial state occupation distribution.</td>
+</tr>
+<tr class="row-odd"><td>emissionprob</td>
+<td>(array, shape (&#8216;n_components`, &#8216;n_symbols`)) Probability of emitting a given symbol when in each state.</td>
+</tr>
+<tr class="row-even"><td>random_state: RandomState or an int seed (0 by default)</td>
+<td>A random number generator instance</td>
+</tr>
+<tr class="row-odd"><td>n_iter</td>
+<td>(int, optional) Number of iterations to perform.</td>
+</tr>
+<tr class="row-even"><td>thresh</td>
+<td>(float, optional) Convergence threshold.</td>
+</tr>
+<tr class="row-odd"><td>params</td>
+<td>(string, optional) Controls which parameters are updated in the training process.  Can contain any combination of &#8216;s&#8217; for startprob, &#8216;t&#8217; for transmat, &#8216;e&#8217; for emmissionprob. Defaults to all parameters.</td>
+</tr>
+<tr class="row-even"><td>init_params</td>
+<td>(string, optional) Controls which parameters are initialized prior to training.  Can contain any combination of &#8216;s&#8217; for startprob, &#8216;t&#8217; for transmat, &#8216;e&#8217; for emmissionprob. Defaults to all parameters.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.decode" title="hmmlearn.hmm.MultinomialHMM.decode"><tt class="xref py py-obj docutils literal"><span class="pre">decode</span></tt></a>(obs[,&nbsp;algorithm])</td>
+<td>Find most likely state sequence corresponding to <tt class="docutils literal"><span class="pre">obs</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">eval</span></tt>(X)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.fit" title="hmmlearn.hmm.MultinomialHMM.fit"><tt class="xref py py-obj docutils literal"><span class="pre">fit</span></tt></a>(obs,&nbsp;**kwargs)</td>
+<td>Estimate model parameters.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.get_params" title="hmmlearn.hmm.MultinomialHMM.get_params"><tt class="xref py py-obj docutils literal"><span class="pre">get_params</span></tt></a>([deep])</td>
+<td>Get parameters for this estimator.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.predict" title="hmmlearn.hmm.MultinomialHMM.predict"><tt class="xref py py-obj docutils literal"><span class="pre">predict</span></tt></a>(obs[,&nbsp;algorithm])</td>
+<td>Find most likely state sequence corresponding to <cite>obs</cite>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.predict_proba" title="hmmlearn.hmm.MultinomialHMM.predict_proba"><tt class="xref py py-obj docutils literal"><span class="pre">predict_proba</span></tt></a>(obs)</td>
+<td>Compute the posterior probability for each state in the model</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.sample" title="hmmlearn.hmm.MultinomialHMM.sample"><tt class="xref py py-obj docutils literal"><span class="pre">sample</span></tt></a>([n,&nbsp;random_state])</td>
+<td>Generate random samples from the model.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.score" title="hmmlearn.hmm.MultinomialHMM.score"><tt class="xref py py-obj docutils literal"><span class="pre">score</span></tt></a>(obs)</td>
+<td>Compute the log probability under the model.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.score_samples" title="hmmlearn.hmm.MultinomialHMM.score_samples"><tt class="xref py py-obj docutils literal"><span class="pre">score_samples</span></tt></a>(obs)</td>
+<td>Compute the log probability under the model and compute posteriors.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.set_params" title="hmmlearn.hmm.MultinomialHMM.set_params"><tt class="xref py py-obj docutils literal"><span class="pre">set_params</span></tt></a>(**params)</td>
+<td>Set the parameters of this estimator.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>n_components=1</em>, <em>startprob=None</em>, <em>transmat=None</em>, <em>startprob_prior=None</em>, <em>transmat_prior=None</em>, <em>algorithm='viterbi'</em>, <em>random_state=None</em>, <em>n_iter=10</em>, <em>thresh=0.01</em>, <em>params='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'</em>, <em>init_params='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a hidden Markov model with multinomial emissions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n_components</strong> : int</p>
+<blockquote class="last">
+<div><p>Number of states.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.__init__" title="hmmlearn.hmm.MultinomialHMM.__init__"><tt class="xref py py-obj docutils literal"><span class="pre">__init__</span></tt></a>([n_components,&nbsp;startprob,&nbsp;...])</td>
+<td>Create a hidden Markov model with multinomial emissions.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.decode" title="hmmlearn.hmm.MultinomialHMM.decode"><tt class="xref py py-obj docutils literal"><span class="pre">decode</span></tt></a>(obs[,&nbsp;algorithm])</td>
+<td>Find most likely state sequence corresponding to <tt class="docutils literal"><span class="pre">obs</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">eval</span></tt>(X)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.fit" title="hmmlearn.hmm.MultinomialHMM.fit"><tt class="xref py py-obj docutils literal"><span class="pre">fit</span></tt></a>(obs,&nbsp;**kwargs)</td>
+<td>Estimate model parameters.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.get_params" title="hmmlearn.hmm.MultinomialHMM.get_params"><tt class="xref py py-obj docutils literal"><span class="pre">get_params</span></tt></a>([deep])</td>
+<td>Get parameters for this estimator.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.predict" title="hmmlearn.hmm.MultinomialHMM.predict"><tt class="xref py py-obj docutils literal"><span class="pre">predict</span></tt></a>(obs[,&nbsp;algorithm])</td>
+<td>Find most likely state sequence corresponding to <cite>obs</cite>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.predict_proba" title="hmmlearn.hmm.MultinomialHMM.predict_proba"><tt class="xref py py-obj docutils literal"><span class="pre">predict_proba</span></tt></a>(obs)</td>
+<td>Compute the posterior probability for each state in the model</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.sample" title="hmmlearn.hmm.MultinomialHMM.sample"><tt class="xref py py-obj docutils literal"><span class="pre">sample</span></tt></a>([n,&nbsp;random_state])</td>
+<td>Generate random samples from the model.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.score" title="hmmlearn.hmm.MultinomialHMM.score"><tt class="xref py py-obj docutils literal"><span class="pre">score</span></tt></a>(obs)</td>
+<td>Compute the log probability under the model.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.score_samples" title="hmmlearn.hmm.MultinomialHMM.score_samples"><tt class="xref py py-obj docutils literal"><span class="pre">score_samples</span></tt></a>(obs)</td>
+<td>Compute the log probability under the model and compute posteriors.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.set_params" title="hmmlearn.hmm.MultinomialHMM.set_params"><tt class="xref py py-obj docutils literal"><span class="pre">set_params</span></tt></a>(**params)</td>
+<td>Set the parameters of this estimator.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.algorithm" title="hmmlearn.hmm.MultinomialHMM.algorithm"><tt class="xref py py-obj docutils literal"><span class="pre">algorithm</span></tt></a></td>
+<td>decoder algorithm</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.emissionprob_" title="hmmlearn.hmm.MultinomialHMM.emissionprob_"><tt class="xref py py-obj docutils literal"><span class="pre">emissionprob_</span></tt></a></td>
+<td>Emission probability distribution for each state.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.startprob_" title="hmmlearn.hmm.MultinomialHMM.startprob_"><tt class="xref py py-obj docutils literal"><span class="pre">startprob_</span></tt></a></td>
+<td>Mixing startprob for each state.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.transmat_" title="hmmlearn.hmm.MultinomialHMM.transmat_"><tt class="xref py py-obj docutils literal"><span class="pre">transmat_</span></tt></a></td>
+<td>Matrix of transition probabilities.</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="hmmlearn.hmm.MultinomialHMM.algorithm">
+<tt class="descname">algorithm</tt><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>decoder algorithm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.decode">
+<tt class="descname">decode</tt><big>(</big><em>obs</em>, <em>algorithm='viterbi'</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find most likely state sequence corresponding to <tt class="docutils literal"><span class="pre">obs</span></tt>.
+Uses the selected algorithm for decoding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obs</strong> : array_like, shape (n, n_features)</p>
+<blockquote>
+<div><p>Sequence of n_features-dimensional data points. Each row
+corresponds to a single point in the sequence.</p>
+</div></blockquote>
+<p><strong>algorithm</strong> : string, one of the <cite>decoder_algorithms</cite></p>
+<blockquote>
+<div><p>decoder algorithm to be used</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>logprob</strong> : float</p>
+<blockquote>
+<div><p>Log probability of the maximum likelihood path through the HMM</p>
+</div></blockquote>
+<p><strong>state_sequence</strong> : array_like, shape (n,)</p>
+<blockquote class="last">
+<div><p>Index of the most likely states for each observation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.score_samples" title="hmmlearn.hmm.MultinomialHMM.score_samples"><tt class="xref py py-obj docutils literal"><span class="pre">score_samples</span></tt></a></dt>
+<dd>Compute the log probability under the model and posteriors.</dd>
+<dt><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.score" title="hmmlearn.hmm.MultinomialHMM.score"><tt class="xref py py-obj docutils literal"><span class="pre">score</span></tt></a></dt>
+<dd>Compute the log probability under the model.</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hmmlearn.hmm.MultinomialHMM.emissionprob_">
+<tt class="descname">emissionprob_</tt><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.emissionprob_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emission probability distribution for each state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.fit">
+<tt class="descname">fit</tt><big>(</big><em>obs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate model parameters.</p>
+<p>An initialization step is performed before entering the EM
+algorithm. If you want to avoid this step, pass proper
+<tt class="docutils literal"><span class="pre">init_params</span></tt> keyword argument to estimator&#8217;s constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obs</strong> : list</p>
+<blockquote class="last">
+<div><p>List of array-like observation sequences. Each observation
+sequence should consist of two or more integers from
+range <tt class="docutils literal"><span class="pre">[0,</span> <span class="pre">n_symbols</span> <span class="pre">-</span> <span class="pre">1]</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.get_params">
+<tt class="descname">get_params</tt><big>(</big><em>deep=True</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters for this estimator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>deep: boolean, optional</strong></p>
+<blockquote>
+<div><p>If True, will return the parameters for this estimator and
+contained subobjects that are estimators.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>params</strong> : mapping of string to any</p>
+<blockquote class="last">
+<div><p>Parameter names mapped to their values.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.predict">
+<tt class="descname">predict</tt><big>(</big><em>obs</em>, <em>algorithm='viterbi'</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find most likely state sequence corresponding to <cite>obs</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obs</strong> : array_like, shape (n, n_features)</p>
+<blockquote>
+<div><p>Sequence of n_features-dimensional data points. Each row
+corresponds to a single point in the sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>state_sequence</strong> : array_like, shape (n,)</p>
+<blockquote class="last">
+<div><p>Index of the most likely states for each observation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.predict_proba">
+<tt class="descname">predict_proba</tt><big>(</big><em>obs</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.predict_proba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the posterior probability for each state in the model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obs</strong> : array_like, shape (n, n_features)</p>
+<blockquote>
+<div><p>Sequence of n_features-dimensional data points. Each row
+corresponds to a single point in the sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>T</strong> : array-like, shape (n, n_components)</p>
+<blockquote class="last">
+<div><p>Returns the probability of the sample for each state in the model.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.sample">
+<tt class="descname">sample</tt><big>(</big><em>n=1</em>, <em>random_state=None</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate random samples from the model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
+<blockquote>
+<div><p>Number of samples to generate.</p>
+</div></blockquote>
+<p><strong>random_state: RandomState or an int seed (0 by default)</strong></p>
+<blockquote>
+<div><p>A random number generator instance. If None is given, the
+object&#8217;s random_state is used</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">(obs, hidden_states)</p>
+<p><strong>obs</strong> : array_like, length <cite>n</cite> List of samples</p>
+<p class="last"><strong>hidden_states</strong> : array_like, length <cite>n</cite> List of hidden states</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.score">
+<tt class="descname">score</tt><big>(</big><em>obs</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the log probability under the model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obs</strong> : array_like, shape (n, n_features)</p>
+<blockquote>
+<div><p>Sequence of n_features-dimensional data points.  Each row
+corresponds to a single data point.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>logprob</strong> : float</p>
+<blockquote class="last">
+<div><p>Log likelihood of the <tt class="docutils literal"><span class="pre">obs</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.score_samples" title="hmmlearn.hmm.MultinomialHMM.score_samples"><tt class="xref py py-obj docutils literal"><span class="pre">score_samples</span></tt></a></dt>
+<dd>Compute the log probability under the model and posteriors</dd>
+<dt><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.decode" title="hmmlearn.hmm.MultinomialHMM.decode"><tt class="xref py py-obj docutils literal"><span class="pre">decode</span></tt></a></dt>
+<dd>Find most likely state sequence corresponding to a <cite>obs</cite></dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.score_samples">
+<tt class="descname">score_samples</tt><big>(</big><em>obs</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.score_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the log probability under the model and compute posteriors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>obs</strong> : array_like, shape (n, n_features)</p>
+<blockquote>
+<div><p>Sequence of n_features-dimensional data points. Each row
+corresponds to a single point in the sequence.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>logprob</strong> : float</p>
+<blockquote>
+<div><p>Log likelihood of the sequence <tt class="docutils literal"><span class="pre">obs</span></tt>.</p>
+</div></blockquote>
+<p><strong>posteriors</strong> : array_like, shape (n, n_components)</p>
+<blockquote class="last">
+<div><p>Posterior probabilities of each state for each
+observation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.score" title="hmmlearn.hmm.MultinomialHMM.score"><tt class="xref py py-obj docutils literal"><span class="pre">score</span></tt></a></dt>
+<dd>Compute the log probability under the model</dd>
+<dt><a class="reference internal" href="#hmmlearn.hmm.MultinomialHMM.decode" title="hmmlearn.hmm.MultinomialHMM.decode"><tt class="xref py py-obj docutils literal"><span class="pre">decode</span></tt></a></dt>
+<dd>Find most likely state sequence corresponding to a <cite>obs</cite></dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="hmmlearn.hmm.MultinomialHMM.set_params">
+<tt class="descname">set_params</tt><big>(</big><em>**params</em><big>)</big><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.</p>
+<p>The method works on simple estimators as well as on nested objects
+(such as pipelines). The former have parameters of the form
+<tt class="docutils literal"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></tt> so that it&#8217;s possible to update each
+component of a nested object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">self</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hmmlearn.hmm.MultinomialHMM.startprob_">
+<tt class="descname">startprob_</tt><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.startprob_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mixing startprob for each state.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="hmmlearn.hmm.MultinomialHMM.transmat_">
+<tt class="descname">transmat_</tt><a class="headerlink" href="#hmmlearn.hmm.MultinomialHMM.transmat_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix of transition probabilities.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/generated/hmmlearn.hmm.MultinomialHMM.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="../index.html">hmmlearn 0.1.0 documentation</a> &raquo;</li>
+          <li><a href="../classes.html" >2. Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010 - 2015, hmmlearn developers (BSD License).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

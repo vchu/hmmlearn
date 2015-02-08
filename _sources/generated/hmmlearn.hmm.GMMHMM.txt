@@ -1,0 +1,41 @@
+hmmlearn.hmm.GMMHMM
+===================
+
+.. currentmodule:: hmmlearn.hmm
+
+.. autoclass:: GMMHMM
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GMMHMM.__init__
+      ~GMMHMM.decode
+      ~GMMHMM.eval
+      ~GMMHMM.fit
+      ~GMMHMM.get_params
+      ~GMMHMM.predict
+      ~GMMHMM.predict_proba
+      ~GMMHMM.sample
+      ~GMMHMM.score
+      ~GMMHMM.score_samples
+      ~GMMHMM.set_params
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~GMMHMM.algorithm
+      ~GMMHMM.covariance_type
+      ~GMMHMM.startprob_
+      ~GMMHMM.transmat_
+   
+   

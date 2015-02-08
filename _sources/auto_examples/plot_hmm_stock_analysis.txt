@@ -1,0 +1,68 @@
+
+
+.. _example_plot_hmm_stock_analysis.py:
+
+
+==========================
+Gaussian HMM of stock data
+==========================
+
+This script shows how to use Gaussian HMM.
+It uses stock price data, which can be obtained from yahoo finance.
+For more information on how to get stock prices with matplotlib, please refer
+to date_demo1.py of matplotlib.
+
+
+
+
+.. image:: images/plot_hmm_stock_analysis_001.png
+    :align: center
+
+
+**Script output**::
+
+  fitting to HMM and decoding ...done
+  
+  Transition matrix
+  [[  7.19570896e-01   1.54624945e-01   1.18353870e-01   3.91487480e-03
+      3.53541433e-03]
+   [  1.49256768e-01   8.20683060e-01   2.91920321e-02   8.56509234e-04
+      1.16305658e-05]
+   [  3.15863454e-01   3.27728996e-02   6.27311548e-01   3.88995961e-15
+      2.40520979e-02]
+   [  9.57321054e-09   2.40272141e-03   1.10020777e-16   9.76774787e-01
+      2.08224821e-02]
+   [  1.10331551e-16   3.62797664e-18   3.24873826e-01   2.62793721e-01
+      4.12332453e-01]]
+  
+  means and vars of each hidden state
+  0th hidden state
+  mean =  [  1.08390044e-02   6.99254267e+07]
+  var =  [  1.08104002e-01   1.53019839e+14]
+  
+  1th hidden state
+  mean =  [  5.99449776e-03   4.91243373e+07]
+  var =  [  4.40560058e-02   1.09682763e+14]
+  
+  2th hidden state
+  mean =  [  3.47721620e-02   1.10484034e+08]
+  var =  [  1.71578756e-01   8.81855827e+14]
+  
+  3th hidden state
+  mean =  [  2.59388740e-02   4.96953798e+07]
+  var =  [  7.73764164e-01   2.50605712e+14]
+  
+  4th hidden state
+  mean =  [ -7.22680912e-01   1.49417678e+08]
+  var =  [  5.36451260e+00   1.02704097e+16]
+
+
+
+**Python source code:** :download:`plot_hmm_stock_analysis.py <plot_hmm_stock_analysis.py>`
+
+.. literalinclude:: plot_hmm_stock_analysis.py
+    :lines: 12-
+
+**Total running time of the example:**  3.60 seconds
+( 0 minutes  3.60 seconds)
+    

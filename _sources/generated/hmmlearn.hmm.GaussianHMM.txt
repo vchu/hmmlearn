@@ -1,0 +1,43 @@
+hmmlearn.hmm.GaussianHMM
+========================
+
+.. currentmodule:: hmmlearn.hmm
+
+.. autoclass:: GaussianHMM
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~GaussianHMM.__init__
+      ~GaussianHMM.decode
+      ~GaussianHMM.eval
+      ~GaussianHMM.fit
+      ~GaussianHMM.get_params
+      ~GaussianHMM.predict
+      ~GaussianHMM.predict_proba
+      ~GaussianHMM.sample
+      ~GaussianHMM.score
+      ~GaussianHMM.score_samples
+      ~GaussianHMM.set_params
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~GaussianHMM.algorithm
+      ~GaussianHMM.covariance_type
+      ~GaussianHMM.covars_
+      ~GaussianHMM.means_
+      ~GaussianHMM.startprob_
+      ~GaussianHMM.transmat_
+   
+   

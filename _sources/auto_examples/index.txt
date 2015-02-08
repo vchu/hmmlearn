@@ -1,0 +1,83 @@
+
+
+
+.. raw:: html
+
+
+    <style type="text/css">
+    div#sidebarbutton {
+        /* hide the sidebar collapser, while ensuring vertical arrangement */
+        display: none;
+    }
+    </style>
+
+.. _examples-index:
+
+Examples
+========
+
+
+
+
+.. _general_examples:
+
+General examples
+----------------
+
+General-purpose and introductory examples for HMMLearn.
+
+
+
+
+
+.. raw:: html
+
+
+    <div class="thumbnailContainer" tooltip="This script shows how to sample points from a Hiden Markov Model (HMM): we use a 4-components w...">
+
+.. figure:: ./images/thumb/plot_hmm_sampling.png
+   :target: ./plot_hmm_sampling.html
+
+   :ref:`example_plot_hmm_sampling.py`
+
+
+.. raw:: html
+
+    </div>
+
+
+
+.. toctree::
+   :hidden:
+
+   ./plot_hmm_sampling
+
+
+
+.. raw:: html
+
+
+    <div class="thumbnailContainer" tooltip="This script shows how to use Gaussian HMM. It uses stock price data, which can be obtained from...">
+
+.. figure:: ./images/thumb/plot_hmm_stock_analysis.png
+   :target: ./plot_hmm_stock_analysis.html
+
+   :ref:`example_plot_hmm_stock_analysis.py`
+
+
+.. raw:: html
+
+    </div>
+
+
+
+.. toctree::
+   :hidden:
+
+   ./plot_hmm_stock_analysis
+
+
+.. raw:: html
+
+    <div class="clearer"></div>
+    

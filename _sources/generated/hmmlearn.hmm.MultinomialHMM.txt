@@ -1,0 +1,41 @@
+hmmlearn.hmm.MultinomialHMM
+===========================
+
+.. currentmodule:: hmmlearn.hmm
+
+.. autoclass:: MultinomialHMM
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~MultinomialHMM.__init__
+      ~MultinomialHMM.decode
+      ~MultinomialHMM.eval
+      ~MultinomialHMM.fit
+      ~MultinomialHMM.get_params
+      ~MultinomialHMM.predict
+      ~MultinomialHMM.predict_proba
+      ~MultinomialHMM.sample
+      ~MultinomialHMM.score
+      ~MultinomialHMM.score_samples
+      ~MultinomialHMM.set_params
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~MultinomialHMM.algorithm
+      ~MultinomialHMM.emissionprob_
+      ~MultinomialHMM.startprob_
+      ~MultinomialHMM.transmat_
+   
+   
