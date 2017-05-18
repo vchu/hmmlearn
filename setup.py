@@ -67,10 +67,14 @@ setup_options = dict(
     ext_modules=[
         Extension("hmmlearn._hmmc", ["hmmlearn/_hmmc.c"],
                   extra_compile_args=["-O3"],
+                  **get_info("npymath")),
+        Extension("hmmlearn._starhmmc", ["hmmlearn/_starhmmc.c"],
+                  extra_compile_args=["-O3"],
                   **get_info("npymath"))
     ],
     install_requires=install_requires,
     tests_require=tests_require,
+    zip_safe=False,
     extras_require={
         "tests": tests_require,
         "docs": docs_require
