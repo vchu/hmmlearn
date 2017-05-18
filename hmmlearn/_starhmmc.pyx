@@ -41,7 +41,7 @@ cdef inline dtype_t _logaddexp(dtype_t a, dtype_t b) nogil:
 
 def _forward(int n_samples, int n_components,
              dtype_t[:] log_startprob,
-             dtype_t[:, :] log_transmat,
+             dtype_t[:, :, :] log_transmat,
              dtype_t[:, :] framelogprob,
              dtype_t[:, :] fwdlattice):
 
@@ -55,14 +55,13 @@ def _forward(int n_samples, int n_components,
         for t in range(1, n_samples):
             for j in range(n_components):
                 for i in range(n_components):
-                    work_buffer[i] = fwdlattice[t - 1, i] + log_transmat[i, j]
+                    work_buffer[i] = fwdlattice[t - 1, i] + log_transmat[t, i, j]
 
                 fwdlattice[t, j] = _logsumexp(work_buffer) + framelogprob[t, j]
 
-"""
 def _backward(int n_samples, int n_components,
               dtype_t[:] log_startprob,
-              dtype_t[:, :] log_transmat,
+              dtype_t[:, :, :] log_transmat,
               dtype_t[:, :] framelogprob,
               dtype_t[:, :] bwdlattice):
 
@@ -76,12 +75,12 @@ def _backward(int n_samples, int n_components,
         for t in range(n_samples - 2, -1, -1):
             for i in range(n_components):
                 for j in range(n_components):
-                    work_buffer[j] = (log_transmat[i, j]
+                    work_buffer[j] = (log_transmat[t, i, j]
                                       + framelogprob[t + 1, j]
                                       + bwdlattice[t + 1, j])
                 bwdlattice[t, i] = _logsumexp(work_buffer)
 
-
+"""
 def _compute_log_xi_sum(int n_samples, int n_components,
                         dtype_t[:, :] fwdlattice,
                         dtype_t[:, :] log_transmat,
