@@ -80,10 +80,9 @@ def _backward(int n_samples, int n_components,
                                       + bwdlattice[t + 1, j])
                 bwdlattice[t, i] = _logsumexp(work_buffer)
 
-"""
 def _compute_log_xi_sum(int n_samples, int n_components,
                         dtype_t[:, :] fwdlattice,
-                        dtype_t[:, :] log_transmat,
+                        dtype_t[:, :, :] log_transmat,
                         dtype_t[:, :] bwdlattice,
                         dtype_t[:, :] framelogprob,
                         dtype_t[:, :] log_xi_sum):
@@ -98,7 +97,7 @@ def _compute_log_xi_sum(int n_samples, int n_components,
             for i in range(n_components):
                 for j in range(n_components):
                     work_buffer[i, j] = (fwdlattice[t, i]
-                                         + log_transmat[i, j]
+                                         + log_transmat[t, i, j]
                                          + framelogprob[t + 1, j]
                                          + bwdlattice[t + 1, j]
                                          - logprob)
@@ -108,7 +107,7 @@ def _compute_log_xi_sum(int n_samples, int n_components,
                     log_xi_sum[i, j] = _logaddexp(log_xi_sum[i, j],
                                                   work_buffer[i, j])
 
-
+"""
 def _viterbi(int n_samples, int n_components,
              dtype_t[:] log_startprob,
              dtype_t[:, :] log_transmat,
