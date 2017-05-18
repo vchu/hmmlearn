@@ -31,7 +31,6 @@ cdef inline dtype_t _logsumexp(dtype_t[:] X) nogil:
 
     return logl(acc) + X_max
 
-"""
 cdef inline dtype_t _logaddexp(dtype_t a, dtype_t b) nogil:
     if isinf(a) and a < 0:
         return b
@@ -40,7 +39,6 @@ cdef inline dtype_t _logaddexp(dtype_t a, dtype_t b) nogil:
     else:
         return max(a, b) + log1pl(expl(-fabsl(a - b)))
 
-"""
 def _forward(int n_samples, int n_components,
              dtype_t[:] log_startprob,
              dtype_t[:, :] log_transmat,
