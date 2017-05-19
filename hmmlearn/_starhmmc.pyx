@@ -70,7 +70,7 @@ def _backward(int n_samples, int n_components,
 
     with nogil:
         for i in range(n_components):
-            bwdlattice[n_samples - 1, i] = 0.0
+            bwdlattice[n_samples - 1, i] = 1.0
 
         for t in range(n_samples - 2, -1, -1):
             for i in range(n_components):
@@ -97,7 +97,7 @@ def _compute_log_xi_sum(int n_samples, int n_components,
             for i in range(n_components):
                 for j in range(n_components):
                     work_buffer[i, j] = (fwdlattice[t, i]
-                                         + log_transmat[t, i, j]
+                                         + log_transmat[t + 1, i, j]
                                          + framelogprob[t + 1, j]
                                          + bwdlattice[t + 1, j]
                                          - logprob)
