@@ -80,32 +80,37 @@ def _backward(int n_samples, int n_components,
                                       + bwdlattice[t + 1, j])
                 bwdlattice[t, i] = _logsumexp(work_buffer)
 
-def _compute_log_xi_sum(int n_samples, int n_components,
+def _compute_log_xi_sum(int n_samples, int n_components, int n_term,
                         dtype_t[:, :] fwdlattice,
-                        dtype_t[:, :, :] log_transmat,
+                        dtype_t[:, :, :, :] log_transmat,
                         dtype_t[:, :] bwdlattice,
                         dtype_t[:, :] framelogprob,
-                        dtype_t[:, :] log_xi_sum):
+                        dtype_t[:, :, :] log_xi_sum):
 
-    cdef int t, i, j
-    cdef dtype_t[:, ::view.contiguous] work_buffer = \
-        np.full((n_components, n_components), -INFINITY)
+    # Need to modify such that we keep track of termination
+    # log_transmat has three variables now (k, i, j)
+    # k is termination value {0,1}, i & j are still phase transitions
+    cdef int t, i, j, k
+    cdef dtype_t[:,:,::view.contiguous] work_buffer = \
+        np.full((n_term, n_components, n_components), -INFINITY)
     cdef dtype_t logprob = _logsumexp(fwdlattice[n_samples - 1])
 
     with nogil:
         for t in range(n_samples - 1):
             for i in range(n_components):
                 for j in range(n_components):
-                    work_buffer[i, j] = (fwdlattice[t, i]
-                                         + log_transmat[t + 1, i, j]
-                                         + framelogprob[t + 1, j]
-                                         + bwdlattice[t + 1, j]
-                                         - logprob)
+                    for k in range(n_term):
+                        work_buffer[k, i, j] = (fwdlattice[t, i]
+                                             + log_transmat[t + 1, k, i, j]
+                                             + framelogprob[t + 1, j]
+                                             + bwdlattice[t + 1, j]
+                                             - logprob)
 
             for i in range(n_components):
                 for j in range(n_components):
-                    log_xi_sum[i, j] = _logaddexp(log_xi_sum[i, j],
-                                                  work_buffer[i, j])
+                    for k in range(n_term):
+                        log_xi_sum[k, i, j] = _logaddexp(log_xi_sum[k, i, j],
+                                                         work_buffer[k, i, j])
 
 """
 def _viterbi(int n_samples, int n_components,
