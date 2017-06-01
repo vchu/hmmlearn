@@ -165,10 +165,9 @@ def _compute_log_xi_sum(int n_samples, int n_components,
                     log_xi_sum[i, j] = _logaddexp(log_xi_sum[i, j],
                                                   work_buffer[i, j])
 
-"""
 def _viterbi(int n_samples, int n_components,
              dtype_t[:] log_startprob,
-             dtype_t[:, :] log_transmat,
+             dtype_t[:, :, :] log_transmat,
              dtype_t[:, :] framelogprob):
 
     cdef int i, j, t, where_from
@@ -188,7 +187,7 @@ def _viterbi(int n_samples, int n_components,
         for t in range(1, n_samples):
             for i in range(n_components):
                 for j in range(n_components):
-                    work_buffer[j] = (log_transmat[j, i]
+                    work_buffer[j] = (log_transmat[t, j, i]
                                       + viterbi_lattice[t - 1, j])
 
                 viterbi_lattice[t, i] = _max(work_buffer) + framelogprob[t, i]
@@ -201,9 +200,8 @@ def _viterbi(int n_samples, int n_components,
         for t in range(n_samples - 2, -1, -1):
             for i in range(n_components):
                 work_buffer[i] = (viterbi_lattice[t, i]
-                                  + log_transmat[i, where_from])
+                                  + log_transmat[t, i, where_from])
 
             state_sequence[t] = where_from = _argmax(work_buffer)
 
     return np.asarray(state_sequence), logprob
-"""
