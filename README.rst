@@ -37,14 +37,14 @@ Installation
 First make sure you have installed all the dependencies listed above. Then run
 the following command::
 
-    To build starhmm modules, run build.py inside hmmlearn
+    To build starhmm modules, run build.py inside hmmlearn folder (~/hmmlearn/hmmlearn)
     $ python build.py build_ext --inplace
     
-    Then to install source
+    Then to install source (~/hmmlearn)
     $ ./setup.py build
     $ sudo ./setup.py install
 
-    Unclear if you need to install the command below
+    Unclear if you need to install the command below (the original hmm pip package)
     pip install -U --user hmmlearn
     
 
