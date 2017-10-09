@@ -14,13 +14,13 @@ import numpy as np
 from scipy.misc import logsumexp
 from sklearn import cluster
 from sklearn.mixture import (
-    sample_gaussian,
-    log_multivariate_normal_density,
-    distribute_covar_matrix_to_match_covariance_type, _validate_covars)
+    distribute_covar_matrix_to_match_covariance_type, _validate_covars
+)
 from sklearn.utils import check_random_state
 
+from .stats import log_multivariate_normal_density
 from .base import _BaseHMM
-from .utils import iter_from_X_lengths, normalize
+from .utils import iter_from_X_lengths, normalize, fill_covars
 
 __all__ = ["GMMHMM", "GaussianHMM", "MultinomialHMM"]
 
@@ -159,22 +159,15 @@ class GaussianHMM(_BaseHMM):
         self.covars_prior = covars_prior
         self.covars_weight = covars_weight
 
-    def _get_covars(self):
+    @property
+    def covars_(self):
         """Return covars as a full matrix."""
-        if self.covariance_type == 'full':
-            return self._covars_
-        elif self.covariance_type == 'diag':
-            return np.array([np.diag(cov) for cov in self._covars_])
-        elif self.covariance_type == 'tied':
-            return np.array([self._covars_] * self.n_components)
-        elif self.covariance_type == 'spherical':
-            return np.array(
-                [np.eye(self.n_features) * cov for cov in self._covars_])
+        return fill_covars(self._covars_, self.covariance_type,
+                           self.n_components, self.n_features)
 
-    def _set_covars(self, covars):
+    @covars_.setter
+    def covars_(self, covars):
         self._covars_ = np.asarray(covars).copy()
-
-    covars_ = property(_get_covars, _set_covars)
 
     def _check(self):
         super(GaussianHMM, self)._check()
@@ -215,12 +208,9 @@ class GaussianHMM(_BaseHMM):
             X, self.means_, self._covars_, self.covariance_type)
 
     def _generate_sample_from_state(self, state, random_state=None):
-        if self.covariance_type == 'tied':
-            cv = self._covars_
-        else:
-            cv = self._covars_[state]
-        return sample_gaussian(self.means_[state], cv, self.covariance_type,
-                               random_state=random_state)
+        return random_state.multivariate_normal(
+            self.means_[state], self.covars_[state]
+        )
 
     def _initialize_sufficient_statistics(self):
         stats = super(GaussianHMM, self)._initialize_sufficient_statistics()
@@ -789,19 +779,19 @@ class GMMHMM(_BaseHMM):
             random_state = self.random_state
         random_state = check_random_state(random_state)
 
-        cur_means = self.means_[state]
-        cur_covs = self.covars_[state]
         cur_weights = self.weights_[state]
-
         i_gauss = random_state.choice(self.n_mix, p=cur_weights)
-        mean = cur_means[i_gauss]
         if self.covariance_type == 'tied':
-            cov = cur_covs
+            # self.covars_.shape == (n_components, n_features, n_features)
+            # shouldn't that be (n_mix, ...)?
+            covs = self.covars_
         else:
-            cov = cur_covs[i_gauss]
-
-        return sample_gaussian(mean, cov, self.covariance_type,
-                               random_state=random_state)
+            covs = self.covars_[:, i_gauss]
+            covs = fill_covars(covs, self.covariance_type,
+                               self.n_components, self.n_features)
+        return random_state.multivariate_normal(
+            self.means_[state, i_gauss], covs[state]
+        )
 
     def _compute_log_weighted_gaussian_densities(self, X, i_comp):
         cur_means = self.means_[i_comp]
