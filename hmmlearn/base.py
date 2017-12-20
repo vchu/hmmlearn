@@ -451,9 +451,14 @@ class _BaseHMM(BaseEstimator):
 
     def _do_viterbi_pass(self, framelogprob):
         n_samples, n_components = framelogprob.shape
-        state_sequence, logprob = _hmmc._viterbi(
-            n_samples, n_components, log_mask_zero(self.startprob_),
-            log_mask_zero(self.transmat_), framelogprob)
+        try:
+            state_sequence, logprob = _hmmc._viterbi(
+                n_samples, n_components, log_mask_zero(self.startprob_),
+                log_mask_zero(self.transmat_), framelogprob)
+        except:
+            state_sequence, logprob = _hmmc._viterbi(
+                n_samples, n_components, log_mask_zero(self.startprob_.astype(float)),
+                log_mask_zero(self.transmat_), framelogprob)
         return logprob, state_sequence
 
     def _do_forward_pass(self, framelogprob):
